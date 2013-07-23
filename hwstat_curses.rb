@@ -17,7 +17,11 @@ Curses.init_pair(5, Curses::COLOR_MAGENTA, Curses::COLOR_BLACK)
 Curses.init_pair(6, Curses::COLOR_YELLOW, Curses::COLOR_BLACK)
 
 while true
-    hwstat = JSON.parse(Curses.getstr, :symbolize_names => true)
+    str = ''
+    while (char = Curses.getch) != "\n".getbyte(0)
+      str << char
+    end
+    hwstat = JSON.parse(str, :symbolize_names => true)
     Curses.clear
     Curses.setpos(0, 0)
 
