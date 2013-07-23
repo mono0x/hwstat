@@ -1,5 +1,7 @@
 #!/usr/bin/ruby
 
+require 'json'
+
 STDOUT.sync = true
 
 NETDEV_NAME = ARGV[0]
@@ -69,5 +71,5 @@ crr = get_hwstat
 while true
     sleep INTERVAL
     prv, crr = crr, get_hwstat
-    p crr.diff(prv)
+    puts JSON.generate(crr.diff(prv))
 end

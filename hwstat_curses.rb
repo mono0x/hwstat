@@ -1,6 +1,7 @@
 #!/usr/bin/ruby
 
 require 'curses'
+require 'json'
 
 TABLE_COLUMN_WIDTH = 12
 
@@ -16,7 +17,7 @@ Curses.init_pair(5, Curses::COLOR_MAGENTA, Curses::COLOR_BLACK)
 Curses.init_pair(6, Curses::COLOR_YELLOW, Curses::COLOR_BLACK)
 
 while true
-    hwstat = eval Curses.getstr
+    hwstat = JSON.parse(Curses.getstr, :symbolize_names => true)
     Curses.clear
     Curses.setpos(0, 0)
 
