@@ -45,6 +45,9 @@ def get_hwstat
     hwstat[:netsnmp] = open('/proc/net/snmp') { |f|
         Hash[[:InSegs, :OutSegs, :RetransSegs].zip(f.select { |line| line.include?('Tcp:') }[1].split(' ').values_at(10, 11, 12).to_i)]
     }
+    hwstat[:softirqs] = open('/proc/softirqs') { |f|
+        Hash[[:hi, :timer, :net_tx, :net_rx, :block, :tasklet, :sched, :rcu].zip(f.to_a[1..8].map { |line| line.split(' ').drop(1).map(&:to_i) })]
+    }
     if NETDEV_NAME != nil
         hwstat[:netdev] = open('/proc/net/dev') { |f|
             items = [:bytes, :packets, :drop]

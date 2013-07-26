@@ -63,6 +63,14 @@ while true
                   hwstat[:interrupts].inject('') { |s, (k, v)|
                       s << sprintf("%#{TABLE_COLUMN_WIDTH}s", k) << " | " <<
                       v.inject('') { |s, x| s << sprintf("%#{TABLE_COLUMN_WIDTH}d", x) } << "\n"
+                  } <<
+                  "\n" <<
+                  "[Softirqs]\n" <<
+                  '        name | ' << hwstat[:cpu].length.times.inject('') { |s, i| s << "        cpu#{i}" } << "\n" <<
+                  '-' * (15 + 12 * hwstat[:cpu].length) << "\n" <<
+                  hwstat[:softirqs].inject('') { |s, (k, v)|
+                      s << sprintf("%#{TABLE_COLUMN_WIDTH}s", k) << " | " <<
+                      v.inject('') { |s, x| s << sprintf("%#{TABLE_COLUMN_WIDTH}d", x) } << "\n"
                   })
     Curses.attroff(Curses::A_COLOR)
 
